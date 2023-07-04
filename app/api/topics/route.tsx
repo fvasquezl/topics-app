@@ -1,6 +1,5 @@
 import connectMongoDB from "@/libs/mongodb"
 import Topic from "@/models/topics"
-import { NextApiRequest } from "next"
 import { NextRequest, NextResponse } from "next/server"
 
 
@@ -13,13 +12,20 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-	await connectMongoDB()
-	const topics = await Topic.find()
-	return NextResponse.json(topics)
+	try {
+		await connectMongoDB()
+		const topics = await Topic.find()
+		return NextResponse.json(topics, { status: 200 })
+	}
+	catch (error) {
+		return new Response('Failed to fetch all prompts', { status: 500 })
+	}
+
+
 }
 
 
-export async function DELETE(request:NextRequest) {
+export async function DELETE(request: NextRequest) {
 	const id = request.nextUrl.searchParams.get("id")
 	await connectMongoDB()
 	await Topic.findByIdAndDelete(id)
