@@ -2,7 +2,7 @@ import connectMongoDB from "@/libs/mongodb";
 import Topic from "@/models/topics";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(request: NextRequest, { params }: { params: { id: String } }) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
 	const { id } = params
 	const { newTitle: title, newDescription: description } = await request.json()
 	await connectMongoDB()
@@ -11,7 +11,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: Stri
 }
 
 
-export async function GET(request: NextRequest, { params }: { params: { id: String } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 	const { id } = params
 	await connectMongoDB()
 	const topic = await Topic.findOne({ _id: id })

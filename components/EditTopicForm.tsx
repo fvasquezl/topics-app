@@ -4,9 +4,9 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 
 interface MyParameters {
-	id: String,
-	title: String,
-	description: String
+	id: string,
+	title: string,
+	description: string
 }
 
 const EditTopicForm = ({ id, title, description }: MyParameters) => {
@@ -15,7 +15,7 @@ const EditTopicForm = ({ id, title, description }: MyParameters) => {
 	const [newDescription, setNewDescription] = useState(description)
 	const router = useRouter()
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		try {
 			const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
@@ -46,7 +46,7 @@ const EditTopicForm = ({ id, title, description }: MyParameters) => {
 				value={newDescription}
 				className="border border-slate-500 px-8 py-2" type="text" placeholder="Topic Description" />
 
-			<button className="bg-green-600 font-bold text-white py-3 px-6 w-fit">Update Topic</button>
+			<button type="submit" className="bg-green-600 font-bold text-white py-3 px-6 w-fit">Update Topic</button>
 		</form>
 	)
 }
